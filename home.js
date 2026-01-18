@@ -1,12 +1,14 @@
-import axios from 'axios';
+import { observable } from 'mobx';
+import HomeApi from 'api/home';
 
-export default {
+const HomeStore = observable( {
+	title: 'this is home page',
+	list: [],
 
-	/**
-	 * 获取首页列表页数据
-	 * @returns {Promise.<*>}
-	 */
-	async getList(){
-		return await axios.get( 'http://lemonof.com:82/api/getList' ).then( ( res ) => res.data.data );
+	// 获取首页数据
+	async getList() {
+		this.list = await HomeApi.getList();
 	}
-}
+} );
+
+export default HomeStore;
